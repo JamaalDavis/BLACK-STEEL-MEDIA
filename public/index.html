@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Black Steel Media — Cinematic AI Campaigns</title>
+  <meta name="description" content="Black Steel Media builds AI-powered video campaigns for minority-owned businesses. Cinematic storytelling meets growth strategy. 14-day delivery." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Manrope:wght@400;500;600&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Design Tokens ─── */
+    :root {
+      --surface:                  #131313;
+      --surface-dim:              #0e0e0e;
+      --surface-container-low:    #1c1b1b;
+      --surface-container:        #201f1f;
+      --surface-container-high:   #2a2a2a;
+      --surface-container-highest:#353534;
+      --on-surface:               #e5e2e1;
+      --on-surface-variant:       #d0c5af;
+      --outline:                  #99907c;
+      --outline-variant:          #4d4635;
+      --primary:                  #f2ca50;
+      --primary-container:        #d4af37;
+      --on-primary:               #3c2f00;
+      --error:                    #ffb4ab;
+
+      --font-headline: 'Newsreader', Georgia, serif;
+      --font-body:     'Manrope', system-ui, sans-serif;
+      --font-label:    'Space Grotesk', system-ui, sans-serif;
+
+      --container-max: 1440px;
+      --gutter:        32px;
+      --margin-x:      64px;
+      --section-gap:   128px;
+    }
+
+    /* ─── Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--surface);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img, video { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Utilities ─── */
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding-inline: var(--margin-x);
+    }
+
+    .label-caps {
+      font-family: var(--font-label);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .eyebrow {
+      font-family: var(--font-label);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-label);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1;
+      padding: 18px 32px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      min-height: 52px;
+    }
+    .btn:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    .btn-primary {
+      background: var(--primary-container);
+      color: var(--on-primary);
+      border-color: var(--primary-container);
+    }
+    .btn-primary:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--on-surface);
+      border-color: var(--on-surface);
+    }
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ─── Navigation ─── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--surface-dim);
+      border-bottom: 1px solid var(--outline-variant);
+      transition: border-color 0.3s;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-headline);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--on-surface);
+    }
+    .nav-logo span { color: var(--primary); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-label);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a[aria-current="page"] {
+      color: var(--on-surface);
+      border-bottom-color: var(--primary);
+    }
+    .nav-links a:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 4px;
+    }
+
+    .nav-cta { margin-left: 16px; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      color: var(--on-surface);
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      padding-top: calc(72px + 96px);
+      padding-bottom: var(--section-gap);
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(212,175,55,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(212,175,55,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero-kicker {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .hero-kicker-line {
+      width: 40px;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .hero h1 {
+      font-family: var(--font-headline);
+      font-size: clamp(48px, 5.5vw, 80px);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--primary);
+    }
+
+    .hero-body {
+      font-size: 20px;
+      line-height: 1.6;
+      color: var(--on-surface-variant);
+      max-width: 520px;
+      margin-bottom: 48px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+    .hero-card {
+      background: var(--surface-container);
+      border: 1px solid var(--outline-variant);
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    .hero-card:hover::after {
+      border-color: var(--primary);
+    }
+    .hero-play {
+      width: 64px;
+      height: 64px;
+      border: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .hero-play:hover { background: rgba(212,175,55,0.15); }
+    .hero-play svg { fill: var(--primary); margin-left: 4px; }
+
+    .hero-tag {
+      position: absolute;
+      bottom: -1px;
+      left: -1px;
+      background: var(--primary-container);
+      color: var(--on-primary);
+      padding: 8px 16px;
+      font-family: var(--font-label);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--outline-variant);
+      border: 1px solid var(--outline-variant);
+      margin-top: 24px;
+    }
+    .hero-stat {
+      background: var(--surface-container-high);
+      padding: 20px 24px;
+      text-align: center;
+    }
+    .hero-stat-num {
+      font-family: var(--font-headline);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--primary);
+      display: block;
+    }
+    .hero-stat-label {
+      font-family: var(--font-label);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ─── Proof Bar ─── */
+    .proof {
+      background: var(--surface-container);
+      border-top: 1px solid var(--outline-variant);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .proof-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .proof-item {
+      padding: 48px 40px;
+      border-right: 1px solid var(--outline-variant);
+      text-align: center;
+    }
+    .proof-item:last-child { border-right: none; }
+    .proof-num {
+      font-family: var(--font-headline);
+      font-size: 56px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+      line-height: 1;
+      display: block;
+    }
+    .proof-label {
+      font-family: var(--font-label);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      margin-top: 12px;
+      display: block;
+    }
+    .proof-sub {
+      font-size: 14px;
+      color: var(--outline);
+      margin-top: 6px;
+    }
+
+    /* ─── Section Common ─── */
+    section { padding-block: var(--section-gap); }
+
+    .section-header {
+      max-width: 720px;
+      margin-bottom: 72px;
+    }
+    .section-header h2 {
+      font-family: var(--font-headline);
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+    .section-header p {
+      font-size: 20px;
+      line-height: 1.6;
+      color: var(--on-surface-variant);
+      margin-top: 20px;
+      max-width: 600px;
+    }
+
+    /* ─── Problem ─── */
+    .problem {
+      background: var(--surface-container-low);
+      border-top: 1px solid var(--outline-variant);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 96px;
+      align-items: center;
+    }
+    .problem-heading {
+      font-family: var(--font-headline);
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+    .problem-heading em {
+      font-style: italic;
+      color: var(--primary);
+    }
+    .problem-body {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--on-surface-variant);
+      margin-top: 28px;
+    }
+    .problem-divider {
+      width: 48px;
+      height: 2px;
+      background: var(--primary);
+      margin-top: 40px;
+    }
+
+    .problem-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .problem-list-item {
+      display: flex;
+      gap: 20px;
+      padding: 28px 32px;
+      background: var(--surface-container);
+      border: 1px solid var(--outline-variant);
+    }
+    .problem-list-item:hover {
+      border-color: rgba(212,175,55,0.3);
+    }
+    .problem-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(212,175,55,0.1);
+      border: 1px solid rgba(212,175,55,0.2);
+    }
+    .problem-icon svg { fill: var(--primary); }
+    .problem-list-item h3 {
+      font-family: var(--font-headline);
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .problem-list-item p {
+      font-size: 15px;
+      color: var(--on-surface-variant);
+      line-height: 1.6;
+    }
+
+    /* ─── Services ─── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--outline-variant);
+      border: 1px solid var(--outline-variant);
+    }
+
+    .service-card {
+      background: var(--surface-container-low);
+      padding: 48px;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .service-card:hover {
+      background: var(--surface-container);
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .service-card:hover::after { transform: scaleX(1); }
+
+    .service-num {
+      font-family: var(--font-label);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: block;
+    }
+    .service-card h3 {
+      font-family: var(--font-headline);
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+    .service-card p {
+      font-size: 16px;
+      color: var(--on-surface-variant);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .service-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .service-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--on-surface-variant);
+    }
+    .service-features li::before {
+      content: '';
+      width: 16px;
+      height: 1px;
+      background: var(--primary);
+      flex-shrink: 0;
+    }
+
+    /* ─── Sprint ─── */
+    .sprint {
+      background: var(--surface-container-low);
+      border-top: 1px solid var(--outline-variant);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+
+    .sprint-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 96px;
+      align-items: start;
+    }
+
+    .sprint-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step;
+    }
+    .sprint-step {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 24px;
+      padding-block: 32px;
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .sprint-step:first-child { padding-top: 0; }
+    .sprint-step:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .sprint-step-num {
+      font-family: var(--font-headline);
+      font-size: 40px;
+      font-weight: 600;
+      color: var(--outline-variant);
+      line-height: 1;
+      padding-top: 4px;
+      transition: color 0.2s;
+    }
+    .sprint-step:hover .sprint-step-num { color: var(--primary); }
+
+    .sprint-step h3 {
+      font-family: var(--font-headline);
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .sprint-step p {
+      font-size: 15px;
+      color: var(--on-surface-variant);
+      line-height: 1.7;
+    }
+
+    .sprint-package {
+      background: var(--surface-container-high);
+      border: 1px solid var(--outline-variant);
+      padding: 48px;
+      position: sticky;
+      top: 96px;
+    }
+    .sprint-package-tag {
+      display: inline-block;
+      background: var(--primary-container);
+      color: var(--on-primary);
+      font-family: var(--font-label);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      margin-bottom: 28px;
+    }
+    .sprint-package h3 {
+      font-family: var(--font-headline);
+      font-size: 32px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .sprint-package > p {
+      font-size: 15px;
+      color: var(--on-surface-variant);
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+    .sprint-deliverables {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .sprint-deliverables li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .sprint-check {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      border: 1px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .sprint-check svg { fill: var(--primary); }
+    .sprint-turnaround {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .sprint-turnaround-days {
+      font-family: var(--font-headline);
+      font-size: 48px;
+      font-weight: 600;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .sprint-turnaround-label {
+      font-size: 14px;
+      color: var(--on-surface-variant);
+      line-height: 1.4;
+    }
+
+    /* ─── Testimonials ─── */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--outline-variant);
+      border: 1px solid var(--outline-variant);
+    }
+    .testimonial {
+      background: var(--surface-container-low);
+      padding: 40px;
+    }
+    .testimonial-quote {
+      font-family: var(--font-headline);
+      font-size: 20px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--on-surface);
+      margin-bottom: 28px;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .testimonial-avatar {
+      width: 44px;
+      height: 44px;
+      background: var(--surface-container-high);
+      border: 1px solid var(--outline-variant);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-label);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+    .testimonial-name {
+      font-family: var(--font-label);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .testimonial-role {
+      font-size: 13px;
+      color: var(--on-surface-variant);
+      margin-top: 2px;
+    }
+    .testimonial-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 20px;
+    }
+    .testimonial-stars span {
+      color: var(--primary);
+      font-size: 14px;
+    }
+
+    /* ─── Process Bar ─── */
+    .process-bar {
+      height: 4px;
+      background: var(--surface-container-high);
+      overflow: hidden;
+      margin-top: 24px;
+    }
+    .process-bar-fill {
+      height: 100%;
+      background: var(--primary);
+      transform-origin: left;
+    }
+
+    /* ─── CTA ─── */
+    .cta-section {
+      background: var(--surface-container);
+      border-top: 1px solid var(--outline-variant);
+      border-bottom: 1px solid var(--outline-variant);
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-family: var(--font-headline);
+      font-size: clamp(36px, 4vw, 64px);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      max-width: 800px;
+      margin-inline: auto;
+      margin-bottom: 24px;
+    }
+    .cta-section h2 em {
+      font-style: italic;
+      color: var(--primary);
+    }
+    .cta-section p {
+      font-size: 20px;
+      color: var(--on-surface-variant);
+      max-width: 560px;
+      margin-inline: auto;
+      margin-bottom: 48px;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-note {
+      margin-top: 24px;
+      font-family: var(--font-label);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--outline);
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--surface-dim);
+      border-top: 1px solid var(--outline-variant);
+      padding-block: 64px;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 64px;
+    }
+    .footer-brand p {
+      font-size: 15px;
+      color: var(--on-surface-variant);
+      line-height: 1.7;
+      margin-top: 16px;
+      max-width: 280px;
+    }
+    .footer-logo {
+      font-family: var(--font-headline);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .footer-logo span { color: var(--primary); }
+
+    .footer-col h4 {
+      font-family: var(--font-label);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--outline);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li + li { margin-top: 12px; }
+    .footer-col a {
+      font-size: 15px;
+      color: var(--on-surface-variant);
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--on-surface); }
+    .footer-col a:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    .footer-bottom {
+      margin-top: 56px;
+      padding-top: 28px;
+      border-top: 1px solid var(--outline-variant);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-bottom p {
+      font-size: 13px;
+      color: var(--outline);
+    }
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--outline-variant);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--on-surface-variant);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .footer-social a:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .footer-social a:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    /* ─── Modal ─── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal {
+      background: var(--surface-container);
+      border: 1px solid var(--outline-variant);
+      width: 100%;
+      max-width: 560px;
+      max-height: 90svh;
+      overflow-y: auto;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+    .modal-overlay.open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 40px 40px 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .modal-header-text {}
+    .modal-eyebrow {
+      font-family: var(--font-label);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .modal-title {
+      font-family: var(--font-headline);
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1.25;
+    }
+    .modal-close {
+      background: none;
+      border: 1px solid var(--outline-variant);
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--on-surface-variant);
+      transition: border-color 0.2s, color 0.2s;
+      margin-top: 4px;
+    }
+    .modal-close:hover { border-color: var(--primary); color: var(--primary); }
+    .modal-close:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+    .modal-body { padding: 32px 40px 40px; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 28px;
+    }
+    .form-field:last-of-type { margin-bottom: 0; }
+
+    .form-label {
+      font-family: var(--font-label);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      margin-bottom: 10px;
+    }
+    .form-input,
+    .form-select,
+    .form-textarea {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--outline-variant);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: 16px;
+      padding: 10px 0 12px;
+      width: 100%;
+      transition: border-color 0.2s;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder { color: var(--outline); }
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus { border-bottom-color: var(--primary); }
+    .form-input[aria-invalid="true"],
+    .form-select[aria-invalid="true"],
+    .form-textarea[aria-invalid="true"] { border-bottom-color: var(--error); }
+
+    .form-select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2399907c' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 4px center;
+      padding-right: 24px;
+    }
+    .form-select option { background: var(--surface-container-high); color: var(--on-surface); }
+
+    .form-textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+    .form-error {
+      font-family: var(--font-label);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--error);
+      margin-top: 6px;
+      min-height: 16px;
+    }
+
+    .form-submit {
+      width: 100%;
+      justify-content: center;
+      margin-top: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .form-submit .btn-loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: inherit;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .form-submit.loading .btn-text { opacity: 0; }
+    .form-submit.loading .btn-loading { opacity: 1; }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(0,0,0,0.2);
+      border-top-color: var(--on-primary);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Success screen */
+    .modal-success {
+      display: none;
+      padding: 64px 40px;
+      text-align: center;
+    }
+    .modal-success.visible { display: block; }
+    .modal-form-wrap.hidden { display: none; }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      border: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+    }
+    .success-icon svg { stroke: var(--primary); }
+    .modal-success h3 {
+      font-family: var(--font-headline);
+      font-size: 28px;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+    .modal-success p {
+      font-size: 16px;
+      color: var(--on-surface-variant);
+      line-height: 1.6;
+      max-width: 360px;
+      margin-inline: auto;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 600px) {
+      .modal-header, .modal-body { padding-inline: 24px; }
+      .modal-header { padding-top: 28px; }
+      .modal-body { padding-bottom: 28px; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+    }
+
+    /* ─── Skip link ─── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      background: var(--primary);
+      color: var(--on-primary);
+      padding: 12px 20px;
+      font-family: var(--font-label);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      z-index: 999;
+      transition: top 0.1s;
+    }
+    .skip-link:focus { top: 16px; }
+
+    /* ─── Scroll animation ─── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    [data-reveal].revealed {
+      opacity: 1;
+      transform: none;
+    }
+    [data-reveal-delay="1"] { transition-delay: 0.1s; }
+    [data-reveal-delay="2"] { transition-delay: 0.2s; }
+    [data-reveal-delay="3"] { transition-delay: 0.3s; }
+    [data-reveal-delay="4"] { transition-delay: 0.4s; }
+
+    /* ─── Mobile ─── */
+    @media (max-width: 1024px) {
+      :root {
+        --margin-x: 40px;
+        --section-gap: 96px;
+      }
+      .hero-inner { grid-template-columns: 1fr; gap: 56px; }
+      .hero-visual { max-width: 580px; }
+      .problem-grid { grid-template-columns: 1fr; gap: 56px; }
+      .sprint-layout { grid-template-columns: 1fr; gap: 64px; }
+      .sprint-package { position: static; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --margin-x: 24px;
+        --section-gap: 72px;
+      }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 72px; left: 0; right: 0;
+        background: var(--surface-dim);
+        border-bottom: 1px solid var(--outline-variant);
+        padding: 24px;
+        gap: 24px;
+      }
+      .nav-toggle { display: flex; }
+      .nav-cta { display: none; }
+      .proof-inner { grid-template-columns: repeat(2, 1fr); }
+      .proof-item { border-right: none; border-bottom: 1px solid var(--outline-variant); }
+      .proof-item:nth-child(odd) { border-right: 1px solid var(--outline-variant); }
+      .proof-item:last-child { border-bottom: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: auto; }
+      .hero-stats { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- ─── Navigation ─── -->
+  <header role="banner">
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a href="/" class="nav-logo" aria-label="Black Steel Media — home">
+          Black <span>Steel</span>
+        </a>
+
+        <ul class="nav-links" id="nav-menu" role="list">
+          <li><a href="#services" class="label-caps">Services</a></li>
+          <li><a href="#sprint" class="label-caps">The Sprint</a></li>
+          <li><a href="#work" class="label-caps">Work</a></li>
+          <li><a href="#about" class="label-caps">About</a></li>
+        </ul>
+
+        <button class="btn btn-primary nav-cta" data-modal-open aria-label="Start your campaign">
+          Start a Campaign
+        </button>
+
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-controls="nav-menu"
+          aria-expanded="false"
+          aria-label="Open menu"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <rect x="3" y="6" width="18" height="2"/>
+            <rect x="3" y="11" width="18" height="2"/>
+            <rect x="3" y="16" width="18" height="2"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ─── Hero ─── -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-inner">
+          <div class="hero-content">
+            <div class="hero-kicker" data-reveal>
+              <div class="hero-kicker-line" aria-hidden="true"></div>
+              <span class="label-caps" style="color: var(--primary);">AI-Powered Video Campaigns</span>
+            </div>
+            <h1 id="hero-heading" data-reveal data-reveal-delay="1">
+              Strong stories<br/>
+              <em>move people.</em><br/>
+              Generic content<br/>gets ignored.
+            </h1>
+            <p class="hero-body" data-reveal data-reveal-delay="2">
+              Black Steel Media builds cinematic AI campaigns for minority-owned businesses — combining strategic storytelling with advanced technology to drive real growth.
+            </p>
+            <div class="hero-actions" data-reveal data-reveal-delay="3">
+              <button class="btn btn-primary" data-modal-open>
+                Launch Your Campaign
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4"/>
+                </svg>
+              </button>
+              <a href="#work" class="btn btn-outline">See Our Work</a>
+            </div>
+          </div>
+
+          <div class="hero-visual" data-reveal data-reveal-delay="2">
+            <div class="hero-card" role="img" aria-label="Campaign video preview">
+              <div class="hero-play" role="button" tabindex="0" aria-label="Play campaign reel">
+                <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M6 4l12 6-12 6V4z"/>
+                </svg>
+              </div>
+              <div class="hero-tag" aria-hidden="true">Campaign Reel — 2025</div>
+            </div>
+            <div class="hero-stats" role="list" aria-label="Key metrics">
+              <div class="hero-stat" role="listitem">
+                <span class="hero-stat-num" aria-label="92 percent">92%</span>
+                <span class="hero-stat-label">Engagement Lift</span>
+              </div>
+              <div class="hero-stat" role="listitem">
+                <span class="hero-stat-num" aria-label="150 plus">150+</span>
+                <span class="hero-stat-label">Campaigns Built</span>
+              </div>
+              <div class="hero-stat" role="listitem">
+                <span class="hero-stat-num" aria-label="10 times">10×</span>
+                <span class="hero-stat-label">Output Speed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Proof Bar ─── -->
+    <div class="proof" role="region" aria-label="Agency stats">
+      <div class="container">
+        <div class="proof-inner">
+          <div class="proof-item">
+            <span class="proof-num" aria-label="92 percent">92%</span>
+            <span class="proof-label">Avg. Engagement Lift</span>
+            <p class="proof-sub">across all campaigns</p>
+          </div>
+          <div class="proof-item">
+            <span class="proof-num" aria-label="14 days">14</span>
+            <span class="proof-label">Day Delivery</span>
+            <p class="proof-sub">from brief to final cut</p>
+          </div>
+          <div class="proof-item">
+            <span class="proof-num" aria-label="150 plus">150+</span>
+            <span class="proof-label">Campaigns Built</span>
+            <p class="proof-sub">for minority-owned brands</p>
+          </div>
+          <div class="proof-item">
+            <span class="proof-num" aria-label="10 times">10×</span>
+            <span class="proof-label">Output Speed</span>
+            <p class="proof-sub">vs. traditional production</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Problem ─── -->
+    <section class="problem" aria-labelledby="problem-heading">
+      <div class="container">
+        <div class="problem-grid">
+          <div>
+            <p class="eyebrow">The Problem</p>
+            <h2 id="problem-heading" class="problem-heading" data-reveal>
+              The internet is flooded with <em>generic AI content.</em> Yours doesn't have to be.
+            </h2>
+            <p class="problem-body" data-reveal data-reveal-delay="1">
+              Most AI video tools treat creativity as an afterthought — they automate production without understanding your brand, your audience, or your story. The result is content that looks generated, feels hollow, and fails to convert.
+            </p>
+            <p class="problem-body" data-reveal data-reveal-delay="2">
+              We use AI as a creative instrument, not a shortcut. Every campaign starts with strategy and ends with a cohesive narrative engineered to move your specific audience.
+            </p>
+            <div class="problem-divider" data-reveal data-reveal-delay="3" aria-hidden="true"></div>
+          </div>
+
+          <ul class="problem-list" aria-label="What we solve">
+            <li class="problem-list-item" data-reveal>
+              <div class="problem-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 18 18">
+                  <path d="M9 1L11.5 6.5L17 7.5L13 11.5L14 17L9 14.5L4 17L5 11.5L1 7.5L6.5 6.5Z"/>
+                </svg>
+              </div>
+              <div>
+                <h3>No More Isolated Posts</h3>
+                <p>We build cohesive campaigns — not one-off videos — so every piece of content reinforces your brand and builds toward a measurable outcome.</p>
+              </div>
+            </li>
+            <li class="problem-list-item" data-reveal data-reveal-delay="1">
+              <div class="problem-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 18 18">
+                  <path d="M2 2h14v14H2zM6 9l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </div>
+              <div>
+                <h3>Strategy-First Production</h3>
+                <p>Every campaign opens with audience targeting analysis and a conversion-focused narrative framework before a single frame is generated.</p>
+              </div>
+            </li>
+            <li class="problem-list-item" data-reveal data-reveal-delay="2">
+              <div class="problem-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 18 18">
+                  <circle cx="9" cy="9" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M9 5v4l3 2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                </svg>
+              </div>
+              <div>
+                <h3>Fast Without Compromise</h3>
+                <p>14-day delivery without sacrificing cinematic quality. We've engineered a process that compresses timelines while elevating the creative standard.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Services ─── -->
+    <section id="services" aria-labelledby="services-heading">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <p class="eyebrow">What We Build</p>
+          <h2 id="services-heading">Four campaign types.<br/>One relentless standard.</h2>
+          <p>Every offering is engineered around a single principle: your story deserves to be told with the same craft and intention as any major film production.</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card" data-reveal>
+            <span class="service-num">01 / AI Video Campaigns</span>
+            <h3>AI Video Campaign Sprints</h3>
+            <p>Our flagship. A rapid, high-fidelity campaign built for fast-moving brands that need to show up at a cinematic level — on any budget.</p>
+            <ul class="service-features" aria-label="Includes">
+              <li>Full campaign strategy & brief</li>
+              <li>Audience targeting framework</li>
+              <li>Narrative-driven scriptwriting</li>
+              <li>3–5 platform-ready short films</li>
+              <li>Delivered in 14 days</li>
+            </ul>
+          </article>
+
+          <article class="service-card" data-reveal data-reveal-delay="1">
+            <span class="service-num">02 / Product Launch</span>
+            <h3>Product Launch Videos</h3>
+            <p>Turn product features into cinematic narratives. We extract the human story inside your product and build launch-ready creative that converts browsers into believers.</p>
+            <ul class="service-features" aria-label="Includes">
+              <li>Product story mining session</li>
+              <li>Launch-day campaign package</li>
+              <li>Multi-format video suite</li>
+              <li>Paid social & organic cuts</li>
+            </ul>
+          </article>
+
+          <article class="service-card" data-reveal data-reveal-delay="2">
+            <span class="service-num">03 / Founder Stories</span>
+            <h3>Founder Story Campaigns</h3>
+            <p>Humanize your vision and build institutional trust. Founder-led content consistently outperforms brand content — we make yours impossible to scroll past.</p>
+            <ul class="service-features" aria-label="Includes">
+              <li>Founder interview & story mining</li>
+              <li>Narrative arc development</li>
+              <li>Multi-episode content series</li>
+              <li>Distribution strategy</li>
+            </ul>
+          </article>
+
+          <article class="service-card" data-reveal data-reveal-delay="3">
+            <span class="service-num">04 / Content Systems</span>
+            <h3>Social Media Content Systems</h3>
+            <p>Stop creating from scratch every week. We build an automated, premium content engine that generates on-brand video at scale — so you maintain presence without burnout.</p>
+            <ul class="service-features" aria-label="Includes">
+              <li>Brand voice documentation</li>
+              <li>Monthly content calendar</li>
+              <li>Template library & automation</li>
+              <li>Performance reporting</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── The Sprint ─── -->
+    <section id="sprint" class="sprint" aria-labelledby="sprint-heading">
+      <div class="container">
+        <div class="sprint-layout">
+          <div>
+            <p class="eyebrow">How It Works</p>
+            <h2 id="sprint-heading" class="section-header" style="margin-bottom: 56px;" data-reveal>
+              <span style="font-family: var(--font-headline); font-size: clamp(36px, 4vw, 56px); font-weight: 500; line-height: 1.2; letter-spacing: -0.01em;">The 14-Day<br/>Campaign Sprint</span>
+            </h2>
+
+            <div class="sprint-steps" role="list">
+              <div class="sprint-step" role="listitem" data-reveal>
+                <span class="sprint-step-num" aria-hidden="true">01</span>
+                <div>
+                  <h3>Strategy & Brief</h3>
+                  <p>Days 1–2. We run a deep-dive audience analysis, establish campaign objectives, and co-create the narrative strategy that will anchor every piece of content.</p>
+                </div>
+              </div>
+              <div class="sprint-step" role="listitem" data-reveal data-reveal-delay="1">
+                <span class="sprint-step-num" aria-hidden="true">02</span>
+                <div>
+                  <h3>Scriptwriting & Storyboard</h3>
+                  <p>Days 3–5. Our writers produce conversion-focused scripts. Each script is built around a central emotional truth — the hook that makes your audience stop scrolling.</p>
+                </div>
+              </div>
+              <div class="sprint-step" role="listitem" data-reveal data-reveal-delay="2">
+                <span class="sprint-step-num" aria-hidden="true">03</span>
+                <div>
+                  <h3>AI Creative Direction</h3>
+                  <p>Days 6–10. We direct the AI pipeline with the precision of a film director — curating visuals, pacing, color, and sound to match your brand identity exactly.</p>
+                </div>
+              </div>
+              <div class="sprint-step" role="listitem" data-reveal data-reveal-delay="3">
+                <span class="sprint-step-num" aria-hidden="true">04</span>
+                <div>
+                  <h3>Revision & Final Delivery</h3>
+                  <p>Days 11–14. Two revision rounds, then final export in all required platform formats — 9:16, 16:9, 1:1 — fully captioned and campaign-ready.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div data-reveal data-reveal-delay="2">
+            <div class="sprint-package" role="region" aria-labelledby="package-heading">
+              <span class="sprint-package-tag">Flagship Offering</span>
+              <h3 id="package-heading">The AI Campaign Sprint</h3>
+              <p>Everything you need to launch a cinematic campaign in two weeks. No retainers. No bloated agencies. Just results.</p>
+
+              <ul class="sprint-deliverables" aria-label="What's included">
+                <li>
+                  <span class="sprint-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8">
+                      <path d="M1 4l3 3 5-6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </span>
+                  Campaign strategy & audience targeting analysis
+                </li>
+                <li>
+                  <span class="sprint-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8">
+                      <path d="M1 4l3 3 5-6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </span>
+                  Narrative-driven scriptwriting (conversion-focused)
+                </li>
+                <li>
+                  <span class="sprint-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8">
+                      <path d="M1 4l3 3 5-6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </span>
+                  AI video creative direction with human curation
+                </li>
+                <li>
+                  <span class="sprint-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8">
+                      <path d="M1 4l3 3 5-6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </span>
+                  3–5 platform-ready short-form videos
+                </li>
+                <li>
+                  <span class="sprint-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8">
+                      <path d="M1 4l3 3 5-6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </span>
+                  Multi-format exports (9:16 / 16:9 / 1:1)
+                </li>
+                <li>
+                  <span class="sprint-check" aria-hidden="true">
+                    <svg width="10" height="8" viewBox="0 0 10 8">
+                      <path d="M1 4l3 3 5-6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    </svg>
+                  </span>
+                  2 revision rounds included
+                </li>
+              </ul>
+
+              <div class="sprint-turnaround">
+                <span class="sprint-turnaround-days" aria-label="14 days">14</span>
+                <div class="sprint-turnaround-label">
+                  <strong>Day delivery</strong><br/>
+                  from brief to final cut
+                </div>
+              </div>
+              <div class="process-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Campaign progress">
+                <div class="process-bar-fill" style="width: 100%;"></div>
+              </div>
+
+              <button class="btn btn-primary" data-modal-open style="margin-top: 32px; width: 100%; justify-content: center;">
+                Book Your Sprint
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Testimonials ─── -->
+    <section id="work" aria-labelledby="testimonials-heading">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <p class="eyebrow">Client Voices</p>
+          <h2 id="testimonials-heading">The results speak<br/>for themselves.</h2>
+        </div>
+
+        <div class="testimonials-grid">
+          <article class="testimonial" data-reveal>
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <span aria-hidden="true">★</span><span aria-hidden="true">★</span>
+              <span aria-hidden="true">★</span><span aria-hidden="true">★</span>
+              <span aria-hidden="true">★</span>
+            </div>
+            <blockquote class="testimonial-quote">
+              "We went from invisible to unstoppable in two weeks. The campaign didn't just look good — it actually converted. Our DMs haven't been the same since."
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" aria-hidden="true">MA</div>
+              <div>
+                <p class="testimonial-name">Marcus A.</p>
+                <p class="testimonial-role">Founder, Apex Apparel</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial" data-reveal data-reveal-delay="1">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <span aria-hidden="true">★</span><span aria-hidden="true">★</span>
+              <span aria-hidden="true">★</span><span aria-hidden="true">★</span>
+              <span aria-hidden="true">★</span>
+            </div>
+            <blockquote class="testimonial-quote">
+              "I've worked with three agencies before Black Steel. None of them understood our audience the way this team did. The storytelling was on another level."
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" aria-hidden="true">TJ</div>
+              <div>
+                <p class="testimonial-name">Tiana J.</p>
+                <p class="testimonial-role">CEO, Root & Rise Wellness</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial" data-reveal data-reveal-delay="2">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <span aria-hidden="true">★</span><span aria-hidden="true">★</span>
+              <span aria-hidden="true">★</span><span aria-hidden="true">★</span>
+              <span aria-hidden="true">★</span>
+            </div>
+            <blockquote class="testimonial-quote">
+              "The 14-day timeline sounded too good to be true. It wasn't. We launched our product with a campaign that made us look like we had a $500K budget."
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" aria-hidden="true">DW</div>
+              <div>
+                <p class="testimonial-name">Devon W.</p>
+                <p class="testimonial-role">Co-founder, Forge Tech</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CTA ─── -->
+    <section id="contact" class="cta-section" aria-labelledby="cta-heading">
+      <div class="container">
+        <p class="eyebrow" style="margin-bottom: 28px;">Ready to Launch</p>
+        <h2 id="cta-heading" data-reveal>
+          Your story deserves<br/>
+          <em>the big screen.</em>
+        </h2>
+        <p data-reveal data-reveal-delay="1">
+          Book a no-pressure discovery call. We'll map out your campaign strategy and show you exactly what's possible in 14 days.
+        </p>
+        <div class="cta-actions" data-reveal data-reveal-delay="2">
+          <button class="btn btn-primary" data-modal-open>
+            Book a Discovery Call
+          </button>
+          <a href="#services" class="btn btn-outline">
+            Explore Services
+          </a>
+        </div>
+        <p class="cta-note" data-reveal data-reveal-delay="3" aria-live="polite">
+          No retainers · No contracts · Just results
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── Footer ─── -->
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <p class="footer-logo">Black <span>Steel</span> Media</p>
+          <p>AI-powered cinematic campaigns for minority-owned businesses. Strategy-first. Story-driven. Built to convert.</p>
+        </div>
+        <nav class="footer-col" aria-label="Services">
+          <h4>Services</h4>
+          <ul role="list">
+            <li><a href="#services">AI Campaign Sprints</a></li>
+            <li><a href="#services">Product Launch</a></li>
+            <li><a href="#services">Founder Stories</a></li>
+            <li><a href="#services">Content Systems</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-label="Company">
+          <h4>Company</h4>
+          <ul role="list">
+            <li><a href="#about">About</a></li>
+            <li><a href="#work">Our Work</a></li>
+            <li><a href="#sprint">The Sprint</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul role="list">
+            <li><a href="mailto:hello@blacksteelmedia.com">hello@blacksteelmedia.com</a></li>
+          </ul>
+          <div class="footer-social" style="margin-top: 24px;" aria-label="Social media">
+            <a href="#" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.162S15.403 5.838 12 5.838zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="TikTok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 Black Steel Media. All rights reserved.</p>
+        <p>Built with cinematic precision.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── Booking Modal ─── -->
+  <div
+    class="modal-overlay"
+    id="modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+    aria-hidden="true"
+  >
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <div class="modal-header-text">
+          <p class="modal-eyebrow">Book a Discovery Call</p>
+          <h2 class="modal-title" id="modal-title">Let's build your campaign.</h2>
+        </div>
+        <button class="modal-close" id="modal-close" aria-label="Close booking form">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M1 1l12 12M13 1L1 13"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Form -->
+        <div class="modal-form-wrap" id="modal-form-wrap">
+          <form id="booking-form" novalidate aria-label="Discovery call booking form">
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="field-name">Full Name <span aria-hidden="true">*</span></label>
+                <input
+                  class="form-input"
+                  id="field-name"
+                  name="name"
+                  type="text"
+                  autocomplete="name"
+                  placeholder="Your name"
+                  required
+                  aria-required="true"
+                  aria-describedby="error-name"
+                />
+                <span class="form-error" id="error-name" role="alert" aria-live="polite"></span>
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="field-business">Business Name <span aria-hidden="true">*</span></label>
+                <input
+                  class="form-input"
+                  id="field-business"
+                  name="business"
+                  type="text"
+                  autocomplete="organization"
+                  placeholder="Your brand"
+                  required
+                  aria-required="true"
+                  aria-describedby="error-business"
+                />
+                <span class="form-error" id="error-business" role="alert" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="field-email">Email Address <span aria-hidden="true">*</span></label>
+              <input
+                class="form-input"
+                id="field-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="you@yourbrand.com"
+                required
+                aria-required="true"
+                aria-describedby="error-email"
+              />
+              <span class="form-error" id="error-email" role="alert" aria-live="polite"></span>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="field-service">Campaign Type <span aria-hidden="true">*</span></label>
+              <select
+                class="form-select"
+                id="field-service"
+                name="service"
+                required
+                aria-required="true"
+                aria-describedby="error-service"
+              >
+                <option value="" disabled selected>Select a campaign type</option>
+                <option value="sprint">AI Video Campaign Sprint</option>
+                <option value="launch">Product Launch Video</option>
+                <option value="founder">Founder Story Campaign</option>
+                <option value="content">Social Media Content System</option>
+                <option value="unsure">Not sure yet — let's talk</option>
+              </select>
+              <span class="form-error" id="error-service" role="alert" aria-live="polite"></span>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="field-message">Tell Us About Your Brand</label>
+              <textarea
+                class="form-textarea"
+                id="field-message"
+                name="message"
+                placeholder="What do you sell, who's your audience, what's the goal?"
+                rows="4"
+                aria-describedby="error-message"
+              ></textarea>
+              <span class="form-error" id="error-message" role="alert" aria-live="polite"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary form-submit" id="form-submit">
+              <span class="btn-text">Send My Request</span>
+              <span class="btn-loading" aria-hidden="true"><span class="spinner"></span></span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Success -->
+        <div class="modal-success" id="modal-success" aria-live="polite">
+          <div class="success-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <path d="M4 12l5 5 11-11"/>
+            </svg>
+          </div>
+          <h3>You're on the list.</h3>
+          <p>We'll be in touch within 24 hours to schedule your discovery call and map out your campaign.</p>
+          <button class="btn btn-outline" id="modal-success-close">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ─── Mobile nav toggle ───
+    const toggle = document.getElementById('nav-toggle');
+    const menu = document.getElementById('nav-menu');
+
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    });
+
+    // Close menu on nav link click
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open menu');
+      });
+    });
+
+    // Close menu on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open menu');
+        toggle.focus();
+      }
+    });
+
+    // ─── Scroll reveal ───
+    const revealObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+    // ─── Active nav highlight on scroll ───
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    const navObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+              const active = link.getAttribute('href') === `#${id}`;
+              link.toggleAttribute('aria-current', active);
+              if (active) link.setAttribute('aria-current', 'page');
+              else link.removeAttribute('aria-current');
+            });
+          }
+        });
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    );
+
+    sections.forEach(s => navObserver.observe(s));
+
+    // ─── Hero play button keyboard support ───
+    document.querySelector('.hero-play').addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+      }
+    });
+
+    // ─── Modal ───
+    const overlay     = document.getElementById('modal-overlay');
+    const modalEl     = document.getElementById('modal');
+    const closeBtn    = document.getElementById('modal-close');
+    const form        = document.getElementById('booking-form');
+    const formWrap    = document.getElementById('modal-form-wrap');
+    const successEl   = document.getElementById('modal-success');
+    const successClose= document.getElementById('modal-success-close');
+    const submitBtn   = document.getElementById('form-submit');
+
+    const FOCUSABLE = 'a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])';
+    let lastFocused = null;
+
+    function openModal() {
+      lastFocused = document.activeElement;
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      // focus first field after transition
+      setTimeout(() => {
+        const first = modalEl.querySelector(FOCUSABLE);
+        if (first) first.focus();
+      }, 50);
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocused) lastFocused.focus();
+    }
+
+    // Open triggers
+    document.querySelectorAll('[data-modal-open]').forEach(el => {
+      el.addEventListener('click', openModal);
+    });
+
+    // Close triggers
+    closeBtn.addEventListener('click', closeModal);
+    successClose.addEventListener('click', closeModal);
+
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) {
+        closeModal();
+      }
+    });
+
+    // Focus trap
+    overlay.addEventListener('keydown', e => {
+      if (e.key !== 'Tab') return;
+      const focusable = [...modalEl.querySelectorAll(FOCUSABLE)].filter(el => !el.closest('.hidden'));
+      const first = focusable[0];
+      const last  = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last)  { e.preventDefault(); first.focus(); }
+      }
+    });
+
+    // ─── Form validation ───
+    const rules = {
+      name:     v => v.trim().length >= 2  ? '' : 'Please enter your full name.',
+      business: v => v.trim().length >= 1  ? '' : 'Please enter your business name.',
+      email:    v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? '' : 'Please enter a valid email address.',
+      service:  v => v !== ''              ? '' : 'Please select a campaign type.',
+    };
+
+    function validateField(input) {
+      const name  = input.name;
+      const error = document.getElementById(`error-${name}`);
+      if (!rules[name]) return true;
+      const msg = rules[name](input.value);
+      if (msg) {
+        input.setAttribute('aria-invalid', 'true');
+        if (error) error.textContent = msg;
+        return false;
+      } else {
+        input.removeAttribute('aria-invalid');
+        if (error) error.textContent = '';
+        return true;
+      }
+    }
+
+    // Live validation on blur
+    form.querySelectorAll('input,select,textarea').forEach(el => {
+      el.addEventListener('blur', () => validateField(el));
+      el.addEventListener('input', () => {
+        if (el.getAttribute('aria-invalid')) validateField(el);
+      });
+    });
+
+    // Submit
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+
+      // Validate all required fields
+      const fields = [...form.querySelectorAll('input[required],select[required]')];
+      const valid  = fields.map(f => validateField(f)).every(Boolean);
+      if (!valid) {
+        const firstInvalid = form.querySelector('[aria-invalid="true"]');
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      // Show loading state
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
+
+      // POST to Cloud Function via Firebase Hosting rewrite (/api/submit-lead)
+      let result;
+      try {
+        const res = await fetch('/api/submit-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name:     form.elements['name'].value,
+            business: form.elements['business'].value,
+            email:    form.elements['email'].value,
+            service:  form.elements['service'].value,
+            message:  form.elements['message'].value,
+          }),
+        });
+        result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Submission failed');
+      } catch (err) {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+        const errBox = form.querySelector('#error-email');
+        if (errBox) {
+          errBox.textContent = err.message || 'Something went wrong. Please try again.';
+        }
+        return;
+      }
+
+      // Show success
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+      formWrap.classList.add('hidden');
+      successEl.classList.add('visible');
+      successEl.querySelector('h3').focus();
+    });
+  </script>
+</body>
+</html>
