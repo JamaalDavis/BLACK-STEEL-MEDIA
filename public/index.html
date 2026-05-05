@@ -1160,6 +1160,105 @@
       border: none;
     }
 
+    /* ─── Video Trigger Button ─── */
+    .video-trigger {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16/9;
+      position: relative;
+      overflow: hidden;
+      background: #0e0e0e;
+      border: 1px solid var(--outline-variant);
+      cursor: pointer;
+      padding: 0;
+      transition: border-color 0.25s;
+    }
+    .video-trigger:hover,
+    .video-trigger:focus-visible { border-color: var(--primary); }
+    .video-trigger:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+    /* all children non-interactive so clicks always hit the button */
+    .video-trigger * { pointer-events: none; }
+
+    .video-trigger .vimeo-thumb {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    .video-trigger .vimeo-thumb.loaded { display: block; }
+
+    .video-trigger-fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0e0e0e 0%, #1c1b1b 100%);
+    }
+    .video-trigger-fallback::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(212,175,55,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,175,55,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .video-trigger-monogram {
+      font-family: var(--font-headline);
+      font-size: 80px;
+      font-weight: 600;
+      color: rgba(212,175,55,0.12);
+      letter-spacing: -0.04em;
+      position: relative;
+      z-index: 1;
+    }
+    .video-trigger--large .video-trigger-monogram { font-size: 120px; }
+
+    .video-trigger-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.38);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.25s;
+    }
+    .video-trigger:hover .video-trigger-overlay { background: rgba(0,0,0,0.18); }
+
+    .video-trigger-play {
+      width: 68px;
+      height: 68px;
+      border: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.5);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .video-trigger--large .video-trigger-play { width: 84px; height: 84px; }
+    .video-trigger:hover .video-trigger-play {
+      transform: scale(1.1);
+      background: rgba(212,175,55,0.2);
+    }
+    .video-trigger-play svg { fill: var(--primary); margin-left: 4px; }
+
+    .video-trigger-tag {
+      position: absolute;
+      bottom: 0; left: 0;
+      background: var(--primary-container);
+      color: var(--on-primary);
+      font-family: var(--font-label);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 7px 14px;
+    }
+
     /* ─── Featured Reel Section ─── */
     .reel-section {
       background: var(--surface-dim);
@@ -1482,22 +1581,18 @@
           </div>
 
           <div class="hero-visual" data-reveal data-reveal-delay="2">
-            <div class="hero-card reel-video-wrap" role="button" tabindex="0" data-video-open aria-label="Play campaign reel" style="cursor:pointer; border:none;">
-              <div class="reel-thumb" style="aspect-ratio:16/9; border:none;">
-                <img class="reel-thumb-img vimeo-thumb" src="" alt="" aria-hidden="true" style="display:none;" />
-                <div class="reel-thumb-fallback" aria-hidden="true">
-                  <span class="reel-thumb-monogram">BS</span>
-                </div>
-                <div class="reel-overlay">
-                  <div class="reel-play-btn" aria-hidden="true">
-                    <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
-                      <path d="M7 4l14 7-14 7V4z"/>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div class="hero-tag" aria-hidden="true">Campaign Reel — 2025</div>
-            </div>
+            <button class="video-trigger" data-video-open aria-label="Play campaign reel">
+              <img class="vimeo-thumb" src="" alt="" aria-hidden="true" />
+              <span class="video-trigger-fallback" aria-hidden="true">
+                <span class="video-trigger-monogram">BS</span>
+              </span>
+              <span class="video-trigger-overlay" aria-hidden="true">
+                <span class="video-trigger-play">
+                  <svg width="22" height="22" viewBox="0 0 22 22"><path d="M7 4l14 7-14 7V4z"/></svg>
+                </span>
+              </span>
+              <span class="video-trigger-tag" aria-hidden="true">Campaign Reel — 2025</span>
+            </button>
             <div class="hero-stats" role="list" aria-label="Key metrics">
               <div class="hero-stat" role="listitem">
                 <span class="hero-stat-num" aria-label="92 percent">92%</span>
@@ -1788,42 +1883,31 @@
     <section class="reel-section" aria-labelledby="reel-heading">
       <div class="container">
         <div class="reel-layout">
-          <div>
-            <div
-              class="reel-video-wrap"
-              role="button"
-              tabindex="0"
-              data-video-open
-              aria-label="Play Black Steel Media campaign reel"
-              data-reveal
-            >
-              <div class="reel-thumb">
-                <img class="reel-thumb-img vimeo-thumb" src="" alt="" aria-hidden="true" style="display:none;" />
-                <div class="reel-thumb-fallback" aria-hidden="true">
-                  <span class="reel-thumb-monogram">BS</span>
-                </div>
-                <div class="reel-overlay">
-                  <div class="reel-play-btn" aria-hidden="true">
-                    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M8 5l13 7-13 7V5z"/>
-                    </svg>
-                  </div>
-                </div>
-                <div class="reel-tag">Watch the Reel</div>
+          <div data-reveal>
+            <button class="video-trigger video-trigger--large" data-video-open aria-label="Play Black Steel Media campaign reel">
+              <img class="vimeo-thumb" src="" alt="" aria-hidden="true" />
+              <span class="video-trigger-fallback" aria-hidden="true">
+                <span class="video-trigger-monogram">BS</span>
+              </span>
+              <span class="video-trigger-overlay" aria-hidden="true">
+                <span class="video-trigger-play">
+                  <svg width="28" height="28" viewBox="0 0 28 28"><path d="M9 5l17 9-17 9V5z"/></svg>
+                </span>
+              </span>
+              <span class="video-trigger-tag" aria-hidden="true">Watch the Reel</span>
+            </button>
+            <div class="reel-stats" role="list" aria-label="Campaign results">
+              <div class="reel-stat" role="listitem">
+                <span class="reel-stat-num">92%</span>
+                <span class="reel-stat-label">Engagement Lift</span>
               </div>
-              <div class="reel-stats" role="list" aria-label="Campaign results">
-                <div class="reel-stat" role="listitem">
-                  <span class="reel-stat-num">92%</span>
-                  <span class="reel-stat-label">Engagement Lift</span>
-                </div>
-                <div class="reel-stat" role="listitem">
-                  <span class="reel-stat-num">14</span>
-                  <span class="reel-stat-label">Day Delivery</span>
-                </div>
-                <div class="reel-stat" role="listitem">
-                  <span class="reel-stat-num">10×</span>
-                  <span class="reel-stat-label">Output Speed</span>
-                </div>
+              <div class="reel-stat" role="listitem">
+                <span class="reel-stat-num">14</span>
+                <span class="reel-stat-label">Day Delivery</span>
+              </div>
+              <div class="reel-stat" role="listitem">
+                <span class="reel-stat-num">10×</span>
+                <span class="reel-stat-label">Output Speed</span>
               </div>
             </div>
           </div>
@@ -2241,10 +2325,12 @@
       .then(data => {
         const thumb = data[0].thumbnail_large;
         document.querySelectorAll('.vimeo-thumb').forEach(img => {
+          img.onload = () => {
+            img.classList.add('loaded');
+            const fallback = img.closest('.video-trigger')?.querySelector('.video-trigger-fallback');
+            if (fallback) fallback.style.display = 'none';
+          };
           img.src = thumb;
-          img.style.display = 'block';
-          const fallback = img.closest('.reel-thumb')?.querySelector('.reel-thumb-fallback');
-          if (fallback) fallback.style.display = 'none';
         });
       })
       .catch(() => {});
