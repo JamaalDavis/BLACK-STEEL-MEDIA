@@ -38,10 +38,9 @@
 
     /* ─── Reset ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: auto; }
 
-    /* offset fixed nav so anchor links land in the right spot */
-    section[id], div[id] { scroll-margin-top: 80px; }
+    /* scroll-margin-top handled in JS for cross-browser reliability */
 
     body {
       background: var(--surface);
@@ -2337,6 +2336,24 @@
         toggle.setAttribute('aria-label', 'Open menu');
         toggle.focus();
       }
+    });
+
+    // ─── Anchor scroll with fixed-nav offset ───
+    const NAV_HEIGHT = 80;
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const href = link.getAttribute('href');
+        if (href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT;
+        window.scrollTo({ top, behavior: 'smooth' });
+        // close mobile nav if open
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open menu');
+      });
     });
 
     // ─── Scroll reveal ───
