@@ -40,6 +40,9 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
+    /* offset fixed nav so anchor links land in the right spot */
+    section[id], div[id] { scroll-margin-top: 80px; }
+
     body {
       background: var(--surface);
       color: var(--on-surface);
