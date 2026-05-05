@@ -38,9 +38,12 @@
 
     /* ─── Reset ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: auto; }
+    html { scroll-behavior: smooth; }
 
-    /* scroll-margin-top handled in JS for cross-browser reliability */
+    /* pull each anchor target below the 72px fixed nav */
+    #services, #sprint, #our-work, #about, #testimonials, #contact {
+      scroll-margin-top: 88px;
+    }
 
     body {
       background: var(--surface);
@@ -1527,7 +1530,7 @@
         <ul class="nav-links" id="nav-menu" role="list">
           <li><a href="#services" class="label-caps">Services</a></li>
           <li><a href="#sprint" class="label-caps">The Sprint</a></li>
-          <li><a href="#work" class="label-caps">Work</a></li>
+          <li><a href="#our-work" class="label-caps">Work</a></li>
           <li><a href="#about" class="label-caps">About</a></li>
         </ul>
 
@@ -1578,7 +1581,7 @@
                   <path d="M3 8h10M9 4l4 4-4 4"/>
                 </svg>
               </button>
-              <a href="#work" class="btn btn-outline">See Our Work</a>
+              <a href="#our-work" class="btn btn-outline">See Our Work</a>
             </div>
           </div>
 
@@ -1643,7 +1646,7 @@
     </div>
 
     <!-- ─── Problem ─── -->
-    <section class="problem" aria-labelledby="problem-heading">
+    <section id="about" class="problem" aria-labelledby="problem-heading">
       <div class="container">
         <div class="problem-grid">
           <div>
@@ -1882,7 +1885,7 @@
     </section>
 
     <!-- ─── Featured Reel ─── -->
-    <section id="work" class="reel-section" aria-labelledby="reel-heading">
+    <section id="our-work" class="reel-section" aria-labelledby="reel-heading">
       <div class="container">
         <div class="reel-layout">
           <div data-reveal>
@@ -2336,24 +2339,6 @@
         toggle.setAttribute('aria-label', 'Open menu');
         toggle.focus();
       }
-    });
-
-    // ─── Anchor scroll with fixed-nav offset ───
-    const NAV_HEIGHT = 80;
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', e => {
-        const href = link.getAttribute('href');
-        if (href === '#') return;
-        const target = document.querySelector(href);
-        if (!target) return;
-        e.preventDefault();
-        const top = target.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT;
-        window.scrollTo({ top, behavior: 'smooth' });
-        // close mobile nav if open
-        menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.setAttribute('aria-label', 'Open menu');
-      });
     });
 
     // ─── Scroll reveal ───
