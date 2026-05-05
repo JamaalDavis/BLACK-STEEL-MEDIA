@@ -588,6 +588,7 @@
     .sprint-step:last-child { border-bottom: none; padding-bottom: 0; }
 
     .sprint-step-num {
+      color: var(--outline); /* #99907c — passes 3:1 on surface-container-low */
       font-family: var(--font-headline);
       font-size: 40px;
       font-weight: 600;
@@ -1946,7 +1947,7 @@
 
         <div class="testimonials-grid">
           <article class="testimonial" data-reveal>
-            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+            <div class="testimonial-stars" role="img" aria-label="5 out of 5 stars">
               <span aria-hidden="true">★</span><span aria-hidden="true">★</span>
               <span aria-hidden="true">★</span><span aria-hidden="true">★</span>
               <span aria-hidden="true">★</span>
@@ -1964,7 +1965,7 @@
           </article>
 
           <article class="testimonial" data-reveal data-reveal-delay="1">
-            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+            <div class="testimonial-stars" role="img" aria-label="5 out of 5 stars">
               <span aria-hidden="true">★</span><span aria-hidden="true">★</span>
               <span aria-hidden="true">★</span><span aria-hidden="true">★</span>
               <span aria-hidden="true">★</span>
@@ -1982,7 +1983,7 @@
           </article>
 
           <article class="testimonial" data-reveal data-reveal-delay="2">
-            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+            <div class="testimonial-stars" role="img" aria-label="5 out of 5 stars">
               <span aria-hidden="true">★</span><span aria-hidden="true">★</span>
               <span aria-hidden="true">★</span><span aria-hidden="true">★</span>
               <span aria-hidden="true">★</span>
@@ -2106,6 +2107,7 @@
     aria-modal="true"
     aria-label="Campaign reel"
     aria-hidden="true"
+    inert
   >
     <button class="video-lightbox-close" id="video-lightbox-close" aria-label="Close video">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -2133,6 +2135,7 @@
     aria-modal="true"
     aria-labelledby="modal-title"
     aria-hidden="true"
+    inert
   >
     <div class="modal" id="modal">
       <div class="modal-header">
@@ -2354,6 +2357,7 @@
       videoIframe.src = VIMEO_SRC;
       videoLightbox.classList.add('open');
       videoLightbox.setAttribute('aria-hidden', 'false');
+      videoLightbox.removeAttribute('inert');
       document.body.style.overflow = 'hidden';
       setTimeout(() => videoLightboxClose.focus(), 50);
     }
@@ -2361,6 +2365,7 @@
     function closeVideo() {
       videoLightbox.classList.remove('open');
       videoLightbox.setAttribute('aria-hidden', 'true');
+      videoLightbox.setAttribute('inert', '');
       videoIframe.src = '';
       document.body.style.overflow = '';
       if (lastVideoFocus) lastVideoFocus.focus();
@@ -2396,6 +2401,7 @@
       lastFocused = document.activeElement;
       overlay.classList.add('open');
       overlay.setAttribute('aria-hidden', 'false');
+      overlay.removeAttribute('inert');
       document.body.style.overflow = 'hidden';
       // focus first field after transition
       setTimeout(() => {
@@ -2407,6 +2413,7 @@
     function closeModal() {
       overlay.classList.remove('open');
       overlay.setAttribute('aria-hidden', 'true');
+      overlay.setAttribute('inert', '');
       document.body.style.overflow = '';
       if (lastFocused) lastFocused.focus();
     }
