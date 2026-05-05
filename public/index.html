@@ -1190,24 +1190,54 @@
     .reel-video-wrap:hover .reel-thumb,
     .reel-video-wrap:focus-visible .reel-thumb { border-color: var(--primary); }
 
-    .reel-thumb iframe {
+    .reel-thumb-img {
       position: absolute;
-      inset: -2px;
-      width: calc(100% + 4px);
-      height: calc(100% + 4px);
-      border: none;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       pointer-events: none;
+    }
+    /* Cinematic fallback when thumbnail hasn't loaded */
+    .reel-thumb-fallback {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, #0e0e0e 0%, #1c1b1b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .reel-thumb-fallback::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(212,175,55,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,175,55,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .reel-thumb-monogram {
+      font-family: var(--font-headline);
+      font-size: 72px;
+      font-weight: 600;
+      color: rgba(212,175,55,0.15);
+      letter-spacing: -0.04em;
+      position: relative;
+      z-index: 1;
     }
     .reel-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.35);
+      background: rgba(0,0,0,0.4);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.3s;
+      transition: background 0.25s;
+      pointer-events: none;
     }
-    .reel-video-wrap:hover .reel-overlay { background: rgba(0,0,0,0.15); }
+    .reel-video-wrap:hover .reel-overlay,
+    .reel-video-wrap:focus-visible .reel-overlay { background: rgba(0,0,0,0.2); }
 
     .reel-play-btn {
       width: 72px;
@@ -1280,8 +1310,12 @@
       inset: -10%;
       width: 120%;
       height: 120%;
-      pointer-events: none;
+      pointer-events: none !important;
       opacity: 0.18;
+    }
+    .cta-bg-video,
+    .cta-bg-video * {
+      pointer-events: none !important;
     }
     .cta-bg-video iframe {
       width: 100%;
@@ -1448,14 +1482,12 @@
           </div>
 
           <div class="hero-visual" data-reveal data-reveal-delay="2">
-            <div class="hero-card" role="button" tabindex="0" data-video-open aria-label="Play campaign reel" style="cursor:pointer;">
+            <div class="hero-card reel-video-wrap" role="button" tabindex="0" data-video-open aria-label="Play campaign reel" style="cursor:pointer; border:none;">
               <div class="reel-thumb" style="aspect-ratio:16/9; border:none;">
-                <iframe
-                  src="https://player.vimeo.com/video/1188780998?background=1&autoplay=1&loop=1&muted=1&controls=0"
-                  allow="autoplay; fullscreen"
-                  title="Black Steel Media campaign reel preview"
-                  tabindex="-1"
-                ></iframe>
+                <img class="reel-thumb-img vimeo-thumb" src="" alt="" aria-hidden="true" style="display:none;" />
+                <div class="reel-thumb-fallback" aria-hidden="true">
+                  <span class="reel-thumb-monogram">BS</span>
+                </div>
                 <div class="reel-overlay">
                   <div class="reel-play-btn" aria-hidden="true">
                     <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
@@ -1766,12 +1798,10 @@
               data-reveal
             >
               <div class="reel-thumb">
-                <iframe
-                  src="https://player.vimeo.com/video/1188780998?background=1&autoplay=1&loop=1&muted=1&controls=0"
-                  allow="autoplay; fullscreen"
-                  title="Campaign reel preview"
-                  tabindex="-1"
-                ></iframe>
+                <img class="reel-thumb-img vimeo-thumb" src="" alt="" aria-hidden="true" style="display:none;" />
+                <div class="reel-thumb-fallback" aria-hidden="true">
+                  <span class="reel-thumb-monogram">BS</span>
+                </div>
                 <div class="reel-overlay">
                   <div class="reel-play-btn" aria-hidden="true">
                     <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
@@ -2204,6 +2234,20 @@
     );
 
     sections.forEach(s => navObserver.observe(s));
+
+    // ─── Fetch Vimeo thumbnail ───
+    fetch('https://vimeo.com/api/v2/video/1188780998.json')
+      .then(r => r.json())
+      .then(data => {
+        const thumb = data[0].thumbnail_large;
+        document.querySelectorAll('.vimeo-thumb').forEach(img => {
+          img.src = thumb;
+          img.style.display = 'block';
+          const fallback = img.closest('.reel-thumb')?.querySelector('.reel-thumb-fallback');
+          if (fallback) fallback.style.display = 'none';
+        });
+      })
+      .catch(() => {});
 
     // ─── Video Lightbox ───
     const videoLightbox      = document.getElementById('video-lightbox');
